@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Mentor Session Booking System</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <h2>Create Account</h2>
+            <p class="stat-label" style="margin-bottom: 20px;">Register as School / NGO or Mentor</p>
+
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="role">Registering As</label>
+                    <select id="role" required>
+                        <option value="school">School / NGO</option>
+                        <option value="mentor">Mentor</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="Choose username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Enter email address" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Choose password" required>
+                </div>
+
+                <!-- School fields -->
+                <div id="schoolFields" class="form-group">
+                    <label for="organization_name">Organization / School Name</label>
+                    <input type="text" id="organization_name" placeholder="Enter full organization name">
+                </div>
+
+                <!-- Mentor fields -->
+                <div id="mentorFields" class="form-group" style="display: none;">
+                    <label for="mentor_name">Full Name</label>
+                    <input type="text" id="mentor_name" placeholder="Enter your full name">
+
+                    <label for="expertise" style="margin-top: 10px;">Area of Expertise</label>
+                    <input type="text" id="expertise" placeholder="e.g. Science, Coding, Mathematics">
+
+                    <label for="qualifications" style="margin-top: 10px;">Qualifications</label>
+                    <input type="text" id="qualifications" placeholder="e.g. B.Tech Computer Science, Educator">
+                </div>
+
+                <button type="submit" class="btn" style="width: 100%;">Register</button>
+            </form>
+
+            <div id="message" class="message"></div>
+
+            <div class="auth-links">
+                <p>Already have an account? <a href="login.html">Login here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/register.js"></script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentor Dashboard - Mentor Session Booking</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Mentor Dashboard</div>
+        <div class="user-nav">
+            <span id="mentorName" style="font-weight: 600;">Mentor Profile</span>
+            <button class="btn btn-secondary btn-sm" onclick="logout()">Logout</button>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('assignedTab')">My Assigned Sessions</button>
+            <button class="tab-btn" onclick="switchTab('availabilityTab')">My Availability</button>
+            <button class="tab-btn" onclick="switchTab('profileTab')">Mentor Profile</button>
+        </div>
+
+        <!-- 1. Assigned Sessions Tab -->
+        <div id="assignedTab" class="tab-panel active">
+            <h3>Sessions Assigned to Me</h3>
+            <div class="table-responsive" style="margin-top: 15px;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Session ID</th>
+                            <th>Title & Description</th>
+                            <th>Topic</th>
+                            <th>Date & Time</th>
+                            <th>Mode & Location</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="assignedSessionsBody"><tr><td colspan="6">Loading assigned sessions...</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 2. Availability Tab -->
+        <div id="availabilityTab" class="tab-panel">
+            <div class="card" style="margin-bottom: 20px;">
+                <h3>Add Availability Slot</h3>
+                <form id="addAvailabilityForm" style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 15px;">
+                    <div style="flex: 1; min-width: 150px;">
+                        <label>Date</label>
+                        <input type="date" id="availDate" required>
+                    </div>
+                    <div style="flex: 1; min-width: 150px;">
+                        <label>Start Time</label>
+                        <input type="time" id="availStart" required>
+                    </div>
+                    <div style="flex: 1; min-width: 150px;">
+                        <label>End Time</label>
+                        <input type="time" id="availEnd" required>
+                    </div>
+                    <div style="flex: 1; min-width: 150px; display: flex; align-items: flex-end;">
+                        <button type="submit" class="btn" style="width: 100%;">Add Slot</button>
+                    </div>
+                </form>
+            </div>
+
+            <h3>My Scheduled Availability Slots</h3>
+            <div class="table-responsive" style="margin-top: 15px;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Slot ID</th>
+                            <th>Date</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                        </tr>
+                    </thead>
+                    <tbody id="availabilityBody"><tr><td colspan="4">Loading availability slots...</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 3. Profile Tab -->
+        <div id="profileTab" class="tab-panel">
+            <div class="card" style="max-width: 500px;">
+                <h3>Mentor Profile Details</h3>
+                <form id="profileForm" style="margin-top: 15px;">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" id="profUsername" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="profEmail" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="profName" required placeholder="Full Name">
+                    </div>
+                    <div class="form-group">
+                        <label>Area of Expertise</label>
+                        <input type="text" id="profExpertise" placeholder="e.g. Computer Science, Science">
+                    </div>
+                    <div class="form-group">
+                        <label>Qualifications</label>
+                        <input type="text" id="profQualifications" placeholder="e.g. M.Sc Physics, Senior Engineer">
+                    </div>
+                    <button type="submit" class="btn">Update Profile</button>
+                </form>
+                <div id="profMessage" class="message"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/mentor.js"></script>
+</body>
+</html>

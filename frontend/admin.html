@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Mentor Session Booking</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Admin Dashboard</div>
+        <div class="user-nav">
+            <span id="userInfo" style="font-weight: 600;">Admin</span>
+            <button class="btn btn-secondary btn-sm" onclick="logout()">Logout</button>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('analyticsTab')">Analytics</button>
+            <button class="tab-btn" onclick="switchTab('usersTab')">Users</button>
+            <button class="tab-btn" onclick="switchTab('topicsTab')">Topics</button>
+            <button class="tab-btn" onclick="switchTab('sessionsTab')">Sessions</button>
+            <button class="tab-btn" onclick="switchTab('bookingsTab')">Bookings</button>
+            <button class="tab-btn" onclick="switchTab('feedbackTab')">Feedback</button>
+        </div>
+
+        <!-- 1. Analytics Tab -->
+        <div id="analyticsTab" class="tab-panel active">
+            <div class="grid" id="statsGrid">
+                <div class="card stat-card"><div class="stat-value" id="statUsers">-</div><div class="stat-label">Total Users</div></div>
+                <div class="card stat-card"><div class="stat-value" id="statMentors">-</div><div class="stat-label">Total Mentors</div></div>
+                <div class="card stat-card"><div class="stat-value" id="statSchools">-</div><div class="stat-label">Total Schools</div></div>
+                <div class="card stat-card"><div class="stat-value" id="statSessions">-</div><div class="stat-label">Total Sessions</div></div>
+                <div class="card stat-card"><div class="stat-value" id="statCompleted">-</div><div class="stat-label">Completed Sessions</div></div>
+                <div class="card stat-card"><div class="stat-value" id="statPending">-</div><div class="stat-label">Pending Bookings</div></div>
+            </div>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3>Popular Topics</h3>
+                    <div id="popularTopicsList" style="margin-top: 10px;">Loading...</div>
+                </div>
+                <div class="card">
+                    <h3>Bookings by School</h3>
+                    <div id="schoolBookingsList" style="margin-top: 10px;">Loading...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Users Tab -->
+        <div id="usersTab" class="tab-panel">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h3>Registered Users</h3>
+            </div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody"><tr><td colspan="6">Loading users...</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 3. Topics Tab -->
+        <div id="topicsTab" class="tab-panel">
+            <div class="card" style="margin-bottom: 20px;">
+                <h3>Create New Topic</h3>
+                <form id="createTopicForm" style="display: flex; gap: 10px; margin-top: 15px;">
+                    <input type="text" id="topicName" placeholder="Topic Name (e.g. AI & Robotics)" required style="flex: 2;">
+                    <input type="text" id="topicDesc" placeholder="Description" style="flex: 3;">
+                    <button type="submit" class="btn" style="flex: 1;">Add Topic</button>
+                </form>
+            </div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Topic Name</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="topicsTableBody"><tr><td colspan="4">Loading topics...</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 4. Sessions Tab -->
+        <div id="sessionsTab" class="tab-panel">
+            <div class="card" style="margin-bottom: 20px;">
+                <h3>Create Session</h3>
+                <form id="createSessionForm" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px;">
+                    <div>
+                        <label>Title</label>
+                        <input type="text" id="sessTitle" required placeholder="Session Title">
+                    </div>
+                    <div>
+                        <label>Topic</label>
+                        <select id="sessTopic" required><option value="">Select Topic</option></select>
+                    </div>
+                    <div>
+                        <label>Date</label>
+                        <input type="date" id="sessDate" required>
+                    </div>
+                    <div>
+                        <label>Start Time</label>
+                        <input type="time" id="sessStart" required>
+                    </div>
+                    <div>
+                        <label>End Time</label>
+                        <input type="time" id="sessEnd" required>
+                    </div>
+                    <div>
+                        <label>Mode</label>
+                        <select id="sessMode"><option value="online">Online</option><option value="offline">Offline</option></select>
+                    </div>
+                    <div>
+                        <label>Location / Link</label>
+                        <input type="text" id="sessLocation" placeholder="Meet link or Venue">
+                    </div>
+                    <div style="grid-column: 1 / -1;">
+                        <label>Description</label>
+                        <input type="text" id="sessDesc" placeholder="Session Overview">
+                    </div>
+                    <div style="grid-column: 1 / -1;">
+                        <button type="submit" class="btn">Create Session</button>
+                    </div>
+                </form>
+            </div>
+
+            <h3>All Sessions</h3>
+            <div class="table-responsive" style="margin-top: 15px;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Topic</th>
+                            <th>Date & Time</th>
+                            <th>Mode</th>
+                            <th>Status</th>
+                            <th>Assigned Mentors</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sessionsTableBody"><tr><td colspan="8">Loading sessions...</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 5. Bookings Tab -->
+        <div id="bookingsTab" class="tab-panel">
+            <h3>Manage School Booking Requests</h3>
+            <div class="table-responsive" style="margin-top: 15px;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>School</th>
+                            <th>Session Title</th>
+                            <th>Date & Time</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookingsTableBody"><tr><td colspan="6">Loading bookings...</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 6. Feedback Tab -->
+        <div id="feedbackTab" class="tab-panel">
+            <h3>Submitted School Feedback</h3>
+            <div class="table-responsive" style="margin-top: 15px;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>School</th>
+                            <th>Session</th>
+                            <th>Rating</th>
+                            <th>Comments</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="feedbackTableBody"><tr><td colspan="6">Loading feedback...</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>
